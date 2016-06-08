@@ -1,9 +1,9 @@
 from celery import Celery
 from flask import json
-import encodeplz.config
+from encodeplz.config import CeleryConfig
 
 celery = Celery()
-celery.config_from_object(encodeplz.config)
+celery.config_from_object(CeleryConfig)
 
 @celery.task
 def do_something(data):
