@@ -2,3 +2,4 @@ flask
 celery
 redis
 python-video-converter
+gunicorn
