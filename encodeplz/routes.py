@@ -2,8 +2,7 @@ from encodeplz.app import app
 from encodeplz.jobs import do_something
 from encodeplz.utils import validate_json
 from flask import json, jsonify, request, Response
-from uuid import uuid4
-from pprint import pprint
+
 
 @app.route('/jobs', methods=['PUT'])
 @validate_json
