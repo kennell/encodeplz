@@ -10,4 +10,5 @@ kombu==3.0.35
 MarkupSafe==0.23
 pytz==2016.4
 redis==2.10.5
+-e git+https://github.com/senko/python-video-converter@0cad6b0ec16e345da56f36f06b7a19bc5278d117#egg=VideoConverter
 Werkzeug==0.11.10
