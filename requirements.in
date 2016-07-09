@@ -1,5 +1,6 @@
 flask
 celery
+click
 redis
 python-video-converter
 gunicorn
