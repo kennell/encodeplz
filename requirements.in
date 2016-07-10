@@ -4,3 +4,4 @@ click
 redis
 python-video-converter
 gunicorn
+requests

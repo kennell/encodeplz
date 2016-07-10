@@ -1,25 +1,31 @@
+import redis
+from uuid import uuid4
 from encodeplz.app import app
-from encodeplz.jobs import do_something
+from encodeplz.jobs import transcode
 from encodeplz.utils import validate_json
-from flask import json, jsonify, request, Response
+from flask import json, jsonify, request
+
+r = redis.StrictRedis(host='localhost', port=6379, db=3)
 
 
 @app.route('/jobs', methods=['PUT'])
 @validate_json
 def job_create():
-    data = json.loads(request.data)
-    job = do_something.delay(data)
+    id = uuid4().hex
+    input = json.loads(request.data)
+
+    transcode.delay(id, input)
+
     return jsonify(
         {
-            'id': job.id
+            'id': id,
+            'input': input
         }
     )
 
 
 @app.route('/jobs/<job_id>')
-def job_read(job_id):
-    return Response(
-        response=do_something.AsyncResult(job_id).get(),
-        status=200,
-        mimetype="application/json"
+def job_show(job_id):
+    return jsonify(
+        r.get(job_id)
     )
