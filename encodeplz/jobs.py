@@ -28,17 +28,17 @@ def transcode(id, input):
     c = Converter()
     output_file =  os.path.join(tempfile.gettempdir(), uuid4().hex)
     conv = c.convert(source_file, output_file, {
-        'format': 'mkv',
+        'format': input['container'],
         'audio': {
-            'codec': 'mp3',
-            'samplerate': 11025,
-            'channels': 2
+            'codec': input['audio']['codec'],
+            'samplerate': input['audio']['samplerate'],
+            'channels': input['audio']['channels']
         },
         'video': {
-            'codec': 'h264',
-            'width': 720,
-            'height': 400,
-            'fps': 5
+            'codec': input['video']['codec'],
+            'width': input['video']['with'],
+            'height': input['video']['height'],
+            'fps': input['video']['fps']
         }})
 
     for percent in conv:
