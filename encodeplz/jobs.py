@@ -24,27 +24,18 @@ def transcode(id, input):
         for block in rsp.iter_content(1024):
             f.write(block)
 
+    try:
+        c = Converter()
+        output_file =  os.path.join(tempfile.gettempdir(), uuid4().hex)
+        conv = c.convert(source_file, output_file, input['params'])
 
-    c = Converter()
-    output_file =  os.path.join(tempfile.gettempdir(), uuid4().hex)
-    conv = c.convert(source_file, output_file, {
-        'format': input['container'],
-        'audio': {
-            'codec': input['audio']['codec'],
-            'samplerate': input['audio']['samplerate'],
-            'channels': input['audio']['channels']
-        },
-        'video': {
-            'codec': input['video']['codec'],
-            'width': input['video']['with'],
-            'height': input['video']['height'],
-            'fps': input['video']['fps']
-        }})
+        for percent in conv:
+            pass
 
-    for percent in conv:
-        pass
+        r.set(id, output_file)
+    except:
+        r.set(id, 'error')
 
-    r.set(id, output_file)
 
 
 
