@@ -7,7 +7,7 @@ from .server import StandaloneServer
 @click.option(
     '--port',
     default=5000,
-    help='Port to listen on, default is 8000'
+    help='Port to listen on, default is 5000'
 )
 def main(port):
     server_options = {
@@ -19,6 +19,7 @@ def main(port):
         'accesslog': '-',
         'errorlog': '-'
     }
+    app.config['ENCODEPLZ_PORT'] = port
     StandaloneServer(app, server_options).run()
 
 
